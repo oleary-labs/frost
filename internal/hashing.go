@@ -128,11 +128,13 @@ func H3(g ecc.Group, input []byte) *ecc.Scalar {
 // H4 hashes the input and proves the "msg" DST.
 func H4(g ecc.Group, msg []byte) []byte {
 	cs := ciphersuites[g-1]
-	return cs.hash.Hash(0, cs.contextString, []byte("msg"), msg)
+	h := cs.hash.Algorithm().New()
+	return h.Hash(0, cs.contextString, []byte("msg"), msg)
 }
 
 // H5 hashes the input and proves the "com" DST.
 func H5(g ecc.Group, msg []byte) []byte {
 	cs := ciphersuites[g-1]
-	return cs.hash.Hash(0, cs.contextString, []byte("com"), msg)
+	h := cs.hash.Algorithm().New()
+	return h.Hash(0, cs.contextString, []byte("com"), msg)
 }
